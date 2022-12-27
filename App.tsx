@@ -1,9 +1,24 @@
+import axios from 'axios';
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function App() {
   const [name, setName] = useState('')
+
+  const [age, setAge] = useState('')
+
+  const getAge = async() => {
+const result = await axios.get(`https://api.agify.io/?name=${name}`)
+const {data} = result || {}
+setAge(data.age)
+  }
+
+  useEffect(()=> {
+ if(name.length > 3 ){
+  getAge()
+ }
+  },[name])
 
   return (
     <View style={styles.container}>
@@ -16,11 +31,11 @@ export default function App() {
      placeholderTextColor="white"
      onChangeText={setName}
      />
-{name.length > 3 &&  <Text style={styles.nameText}>Hola, {name}</Text>}
+{name.length > 3 &&  <Text style={styles.nameText}>Hola, {name} tiene {age} años de edad</Text>}
      
      </View>
-    
       <StatusBar style="auto" />
+      
     </View>
   );
 }
