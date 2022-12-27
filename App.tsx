@@ -1,10 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default function App() {
+  const [name, setName] = useState('')
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+      <Text style={styles.title}>Welcome to {'\n'} Lolocar</Text>
+     
+     <View style= {styles.viewInput}>
+      <Text style={styles.name}>What's your name?</Text>
+     <TextInput style={styles.input} 
+     placeholder= "abc"
+     placeholderTextColor="white"
+     onChangeText={setName}
+     />
+{name.length > 3 &&  <Text style={styles.nameText}>Hola, {name}</Text>}
+     
+     </View>
+    
       <StatusBar style="auto" />
     </View>
   );
@@ -13,8 +28,43 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'gray',
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 20
+    // justifyContent: 'center',
   },
+  title:{
+    fontSize: 30,
+    fontWeight: '700',
+    color: 'white',
+    textAlign: 'center'
+  },
+  viewInput: {
+    flex:  1,
+    paddingTop: 20,
+    width: '100%',
+ backgroundColor: 'black'
+  },
+  name: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: 'white',
+    paddingLeft: 7
+  },
+  input: {
+    width: '95%',
+    height: 30,
+    marginHorizontal: 10,
+    backgroundColor: 'gray',
+    paddingLeft: 5,
+    borderRadius: 2,
+    color: 'white1234'
+  },
+  nameText: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: 'white',
+    marginLeft: 10,
+    marginTop: 20
+  }
 });
